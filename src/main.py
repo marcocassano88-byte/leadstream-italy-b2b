@@ -3,12 +3,13 @@ import re
 import sys
 import logging
 import requests
+from bs4 import BeautifulSoup
 import pandas as pd
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # ==========================================
-# MODULE 1: BIG DATA SCRAPER LOGIC
+# MODULE 1: BIG DATA SCRAPER & REAL CONTACT EXTRACTOR
 # ==========================================
 class B2BScraper:
     def __init__(self):
@@ -16,12 +17,45 @@ class B2BScraper:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         }
 
+    def extract_real_contacts(self, url):
+        """Visita il sito web reale e cerca email e telefoni veri nel codice della pagina"""
+        email = "Non trovata pubblicamente"
+        phone = "Non trovato pubblicamente"
+        
+        # Se non ha protocollo, lo aggiungiamo
+        target_url = url if url.startswith("http") else f"https://{url}"
+        
+        try:
+            # Timeout breve per evitare che l'azione GitHub si blocchi per ore su un sito lento
+            response = requests.get(target_url, headers=self.headers, timeout=8, verify=False)
+            if response.status_code == 200:
+                html_content = response.text
+                
+                # 1. REGEX EMAIL REALI (Esclude estensioni di immagini o falsi positivi)
+                emails = re.findall(r'[a-zA-Z0-9_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}', html_content)
+                if emails:
+                    # Filtriamo email di sistema comuni o duplicati
+                    valid_emails = [e for e in emails if not e.endswith(('png', 'jpg', 'jpeg', 'gif', 'wixpress.com'))]
+                    if valid_emails:
+                        email = list(set(valid_emails))[0] # Prende la prima email reale unica
+                
+                # 2. REGEX NUMERI DI TELEFONO REALI (Standard italiani: fissi e cellulari)
+                # Cerca formati come +39..., 02..., 333..., con o senza spazi
+                phones = re.findall(r'(?:(?:\+|00)39[\s.-]?)?(?:0[1-9][0-9][\s.-]?[0-9]{3,4}[\s.-]?[0-9]{3,4}|3[0-9]{2}[\s.-]?[0-9]{3,4}[\s.-]?[0-9]{3,4})', html_content)
+                if phones:
+                    # Pulisce spazi e prende il primo numero coerente trovato
+                    cleaned_phones = [p.strip() for p in phones if len(p.strip()) > 7]
+                    if cleaned_phones:
+                        phone = list(set(cleaned_phones))[0]
+        except Exception as e:
+            logging.debug(f"Impossibile scansionare i contatti live per {url}: {e}")
+            
+        return email, phone
+
     def get_massive_tech_dataset(self):
         logging.info("Estrazione database italiano High-Tech & Digital...")
         
-        # Database nativo di aziende top B2B Tech/SaaS/Digital in Italia
         companies_pool = [
-            # SaaS & Software Houses
             {"name": "Bending Spoons", "ind": "SaaS & High-Tech B2B", "web": "bendingspoons.com", "cert": "Premium"},
             {"name": "Musixmatch", "ind": "SaaS & High-Tech B2B", "web": "musixmatch.com", "cert": "Premium"},
             {"name": "Casavo", "ind": "SaaS & High-Tech B2B", "web": "casavo.com", "cert": "Premium"},
@@ -33,109 +67,15 @@ class B2BScraper:
             {"name": "Milkman Technologies", "ind": "SaaS & High-Tech B2B", "web": "milkmantechnologies.com", "cert": "Standard"},
             {"name": "Boom Image Studio", "ind": "SaaS & High-Tech B2B", "web": "boom.co", "cert": "Premium"},
             {"name": "Cloudigniter", "ind": "SaaS & High-Tech B2B", "web": "cloudigniter.it", "cert": "Premium"},
-            {"name": "DataPrism", "ind": "SaaS & High-Tech B2B", "web": "dataprism.io", "cert": "Standard"},
-            {"name": "Synapse Software", "ind": "SaaS & High-Tech B2B", "web": "synapsesoftware.it", "cert": "Remote Verified"},
-            {"name": "Quantum Digital", "ind": "SaaS & High-Tech B2B", "web": "quantumdigital.it", "cert": "Standard"},
-            {"name": "Archon Tech", "ind": "SaaS & High-Tech B2B", "web": "archontech.io", "cert": "Premium"},
-            {"name": "LeadForge", "ind": "SaaS & High-Tech B2B", "web": "leadforge.it", "cert": "Remote Verified"},
-            {"name": "Vortex Automation", "ind": "SaaS & High-Tech B2B", "web": "vortexautomation.it", "cert": "Standard"},
-            {"name": "Hyperion Lab", "ind": "SaaS & High-Tech B2B", "web": "hyperionlab.ai", "cert": "Premium"},
-            {"name": "Alathea", "ind": "SaaS & High-Tech B2B", "web": "alathea.it", "cert": "Standard"},
-            {"name": "AppTech Studio", "ind": "SaaS & High-Tech B2B", "web": "apptechstudio.com", "cert": "Standard"},
-            {"name": "BizOps Systems", "ind": "SaaS & High-Tech B2B", "web": "bizops.it", "cert": "Premium"},
-            {"name": "CyberShield Italia", "ind": "SaaS & High-Tech B2B", "web": "cybershield.it", "cert": "Premium"},
-            {"name": "DeepData Analytics", "ind": "SaaS & High-Tech B2B", "web": "deepdata.io", "cert": "Standard"},
-            {"name": "E-Commerce Engines", "ind": "SaaS & High-Tech B2B", "web": "ecengines.it", "cert": "Standard"},
-            {"name": "FlowState Tech", "ind": "SaaS & High-Tech B2B", "web": "flowstate.io", "cert": "Remote Verified"},
-            {"name": "GridSolutions", "ind": "SaaS & High-Tech B2B", "web": "gridsolutions.it", "cert": "Standard"},
-            {"name": "Helix AI", "ind": "SaaS & High-Tech B2B", "web": "helixai.it", "cert": "Premium"},
-            {"name": "Innovo Cloud", "ind": "SaaS & High-Tech B2B", "web": "innovocloud.com", "cert": "Premium"},
-            {"name": "JobPulse SaaS", "ind": "SaaS & High-Tech B2B", "web": "jobpulse.io", "cert": "Standard"},
-            {"name": "Krypton Security", "ind": "SaaS & High-Tech B2B", "web": "kryptonsec.it", "cert": "Premium"},
-            {"name": "LogiTech Solutions", "ind": "SaaS & High-Tech B2B", "web": "logitechsolutions.it", "cert": "Standard"},
-            {"name": "MindMesh Technologies", "ind": "SaaS & High-Tech B2B", "web": "mindmesh.io", "cert": "Remote Verified"},
-            {"name": "NetScale Innovations", "ind": "SaaS & High-Tech B2B", "web": "netscale.it", "cert": "Standard"},
-            {"name": "OmniChannel Lab", "ind": "SaaS & High-Tech B2B", "web": "omnichannellab.it", "cert": "Standard"},
-            {"name": "Predictive B2B", "ind": "SaaS & High-Tech B2B", "web": "predictive.ai", "cert": "Premium"},
-            {"name": "Quantis Code", "ind": "SaaS & High-Tech B2B", "web": "quantiscode.com", "cert": "Standard"},
-            {"name": "RedTeam Cloud", "ind": "SaaS & High-Tech B2B", "web": "redteamcloud.it", "cert": "Premium"},
-            {"name": "Syncro SaaS", "ind": "SaaS & High-Tech B2B", "web": "syncrosaas.com", "cert": "Standard"},
-            {"name": "TrueNorth Tech", "ind": "SaaS & High-Tech B2B", "web": "truenorth.it", "cert": "Remote Verified"},
-            {"name": "UpScale Dev", "ind": "SaaS & High-Tech B2B", "web": "upscaledev.io", "cert": "Standard"},
-            
-            # Digital Agencies & Service Providers
             {"name": "SparkFabrik", "ind": "Digital Service Provider", "web": "sparkfabrik.com", "cert": "Remote Verified"},
-            {"name": "Clevertech Europe", "ind": "Digital Service Provider", "web": "clevertech.biz", "cert": "Remote Verified"},
-            {"name": "Apex Digital", "ind": "Digital Service Provider", "web": "apexdigital.it", "cert": "Standard"},
-            {"name": "Chora Media", "ind": "Digital Service Provider", "web": "choramedia.com", "cert": "Standard"},
-            {"name": "Akqa Italy", "ind": "Digital Service Provider", "web": "akqa.it", "cert": "Premium"},
             {"name": "H-Farm Digital", "ind": "Digital Service Provider", "web": "h-farm.com", "cert": "Premium"},
             {"name": "Reply Spa", "ind": "Digital Service Provider", "web": "reply.com", "cert": "Premium"},
-            {"name": "Digitouch", "ind": "Digital Service Provider", "web": "gruppodigitouch.it", "cert": "Standard"},
             {"name": "Alkemy", "ind": "Digital Service Provider", "web": "alkemy.com", "cert": "Premium"},
             {"name": "Jakala", "ind": "Digital Service Provider", "web": "jakala.com", "cert": "Premium"},
-            {"name": "Adiacent", "ind": "Digital Service Provider", "web": "adiacent.com", "cert": "Standard"},
-            {"name": "Belive Digital", "ind": "Digital Service Provider", "web": "belivedigital.it", "cert": "Standard"},
-            {"name": "CodeCafé", "ind": "Digital Service Provider", "web": "codecafe.it", "cert": "Remote Verified"},
-            {"name": "Digital Waves", "ind": "Digital Service Provider", "web": "digitalwaves.io", "cert": "Standard"},
-            {"name": "Evolving Agency", "ind": "Digital Service Provider", "web": "evolving.it", "cert": "Standard"},
-            {"name": "Future Commerce", "ind": "Digital Service Provider", "web": "futurecommerce.it", "cert": "Standard"},
-            {"name": "GrowthHounds", "ind": "Digital Service Provider", "web": "growthhounds.io", "cert": "Remote Verified"},
-            {"name": "HubDigital", "ind": "Digital Service Provider", "web": "hubdigital.it", "cert": "Standard"},
-            {"name": "Inbound Factory", "ind": "Digital Service Provider", "web": "inboundfactory.it", "cert": "Standard"},
-            {"name": "Juice Digital", "ind": "Digital Service Provider", "web": "juicedigital.com", "cert": "Standard"},
-            {"name": "Kreative Studio", "ind": "Digital Service Provider", "web": "kreativestudio.it", "cert": "Standard"},
-            {"name": "LeadEngines", "ind": "Digital Service Provider", "web": "leadengines.io", "cert": "Remote Verified"},
-            {"name": "MediaCraft", "ind": "Digital Service Provider", "web": "mediacraft.it", "cert": "Standard"},
-            {"name": "Nexus Marketing", "ind": "Digital Service Provider", "web": "nexusmarketing.it", "cert": "Standard"},
-            {"name": "Outliers Agency", "ind": "Digital Service Provider", "web": "outliers.io", "cert": "Standard"},
-            {"name": "PixelPerfect", "ind": "Digital Service Provider", "web": "pixelperfect.it", "cert": "Remote Verified"},
-            {"name": "Quantum Growth", "ind": "Digital Service Provider", "web": "quantumgrowth.it", "cert": "Premium"},
-            {"name": "Rocket Conversion", "ind": "Digital Service Provider", "web": "rocketconversion.it", "cert": "Standard"},
-            {"name": "ScaleUp Milano", "ind": "Digital Service Provider", "web": "scaleupmilano.it", "cert": "Standard"},
-            {"name": "TrafficLab", "ind": "Digital Service Provider", "web": "trafficlab.io", "cert": "Standard"},
-            
-            # Additional Tech & Startup Ecosystem
             {"name": "Yolo Group", "ind": "SaaS & High-Tech B2B", "web": "yolo-insurance.com", "cert": "Premium"},
             {"name": "Young Platform", "ind": "SaaS & High-Tech B2B", "web": "youngplatform.com", "cert": "Premium"},
-            {"name": "Walliance", "ind": "SaaS & High-Tech B2B", "web": "walliance.eu", "cert": "Standard"},
             {"name": "Soldo", "ind": "SaaS & High-Tech B2B", "web": "soldo.com", "cert": "Premium"},
-            {"name": "Credimi", "ind": "SaaS & High-Tech B2B", "web": "credimi.com", "cert": "Premium"},
-            {"name": "Firenze Dev", "ind": "SaaS & High-Tech B2B", "web": "firenzedev.com", "cert": "Standard"},
-            {"name": "Bologna Software", "ind": "SaaS & High-Tech B2B", "web": "bolognasoftware.it", "cert": "Standard"},
-            {"name": "Torino Automation", "ind": "SaaS & High-Tech B2B", "web": "torinoautomation.com", "cert": "Premium"},
-            {"name": "Roma Cyber Security", "ind": "SaaS & High-Tech B2B", "web": "romacybersec.it", "cert": "Premium"},
-            {"name": "Venice Digital Tech", "ind": "SaaS & High-Tech B2B", "web": "venicedigitaltech.it", "cert": "Standard"},
-            {"name": "AlphaBot", "ind": "SaaS & High-Tech B2B", "web": "alphabot.ai", "cert": "Standard"},
-            {"name": "BetaCode", "ind": "SaaS & High-Tech B2B", "web": "betacode.io", "cert": "Remote Verified"},
-            {"name": "Gamma Cloud", "ind": "SaaS & High-Tech B2B", "web": "gammacloud.it", "cert": "Standard"},
-            {"name": "Delta Systems", "ind": "SaaS & High-Tech B2B", "web": "deltasystems.it", "cert": "Standard"},
-            {"name": "Epsilon AI", "ind": "SaaS & High-Tech B2B", "web": "epsilonai.com", "cert": "Premium"},
-            {"name": "Zeta Outbound", "ind": "Digital Service Provider", "web": "zetaoutbound.it", "cert": "Standard"},
-            {"name": "Theta Studio", "ind": "Digital Service Provider", "web": "thetastudio.io", "cert": "Standard"},
-            {"name": "Iota Consulting", "ind": "Digital Service Provider", "web": "iotaconsulting.it", "cert": "Standard"},
-            {"name": "Kappa Media", "ind": "Digital Service Provider", "web": "kappamedia.com", "cert": "Standard"},
-            {"name": "Lambda Growth", "ind": "Digital Service Provider", "web": "lambdagrowth.it", "cert": "Remote Verified"},
-            {"name": "Mu Labs", "ind": "SaaS & High-Tech B2B", "web": "mulabs.io", "cert": "Premium"},
-            {"name": "Nu Data", "ind": "SaaS & High-Tech B2B", "web": "nudata.it", "cert": "Standard"},
-            {"name": "Xi Systems", "ind": "SaaS & High-Tech B2B", "web": "xisystems.com", "cert": "Standard"},
-            {"name": "Omicron Security", "ind": "SaaS & High-Tech B2B", "web": "omicronsec.it", "cert": "Premium"},
-            {"name": "Pi Factor", "ind": "SaaS & High-Tech B2B", "web": "pifactor.io", "cert": "Standard"},
-            {"name": "Rho Solutions", "ind": "Digital Service Provider", "web": "rhosolutions.it", "cert": "Standard"},
-            {"name": "Sigma Outbound", "ind": "Digital Service Provider", "web": "sigmaoutbound.com", "cert": "Standard"},
-            {"name": "Tau Development", "ind": "Digital Service Provider", "web": "taudev.io", "cert": "Remote Verified"},
-            {"name": "Upsilon Media", "ind": "Digital Service Provider", "web": "upsilonmedia.it", "cert": "Standard"},
-            {"name": "Phi Analytics", "ind": "SaaS & High-Tech B2B", "web": "phianalytics.com", "cert": "Premium"},
-            {"name": "Chi Logic", "ind": "SaaS & High-Tech B2B", "web": "chilogic.it", "cert": "Standard"},
-            {"name": "Psi Tech", "ind": "SaaS & High-Tech B2B", "web": "psitech.io", "cert": "Standard"},
-            {"name": "Omega Commerce", "ind": "Digital Service Provider", "web": "omegacommerce.it", "cert": "Standard"},
-            {"name": "Zenith SaaS", "ind": "SaaS & High-Tech B2B", "web": "zenithsaas.com", "cert": "Premium"},
-            {"name": "Horizon Digital", "ind": "Digital Service Provider", "web": "horizondigital.it", "cert": "Standard"},
-            {"name": "Apex Cloud", "ind": "SaaS & High-Tech B2B", "web": "apexcloud.io", "cert": "Premium"},
-            {"name": "Vertex Software", "ind": "SaaS & High-Tech B2B", "web": "vertexsoftware.it", "cert": "Standard"},
-            {"name": "Nova Systems", "ind": "SaaS & High-Tech B2B", "web": "novasystems.com", "cert": "Standard"},
-            {"name": "Stellar Tech", "ind": "SaaS & High-Tech B2B", "web": "stellartech.it", "cert": "Remote Verified"},
-            {"name": "Pulse Digital", "ind": "Digital Service Provider", "web": "pulsedigital.io", "cert": "Standard"}
+            {"name": "Zenith SaaS", "ind": "SaaS & High-Tech B2B", "web": "zenithsaas.com", "cert": "Premium"}
         ]
         
         formatted_list = []
@@ -171,7 +111,7 @@ class B2BScraper:
         return companies
 
 # ==========================================
-# MODULE 2: ENRICHER & CONTACT GENERATOR
+# MODULE 2: ENRICHER & LIVE VERIFIER
 # ==========================================
 class DataEnricher:
     @staticmethod
@@ -185,8 +125,8 @@ class DataEnricher:
         parts = url.split('/')
         return parts[2] if len(parts) > 2 else url
 
-    def enrich_dataset(self, raw_data):
-        logging.info("Normalizzazione, rimozione duplicati e generazione contatti B2B...")
+    def enrich_dataset(self, raw_data, scraper_instance):
+        logging.info("Pulizia duplicati ed estrazione contatti REALI tramite scansione live...")
         if not raw_data:
             return pd.DataFrame()
 
@@ -194,31 +134,24 @@ class DataEnricher:
         df['company_name'] = df['company_name'].str.strip().str.title()
         df['website'] = df['website'].apply(self.clean_website)
         df.drop_duplicates(subset=['website'], keep='first', inplace=True)
+        
+        # Per evitare blocchi di timeout su GitHub, limitiamo lo scraping profondo live 
+        # ai top brand principali ed eseguiamo la ricerca in tempo reale
+        real_emails = []
+        real_phones = []
+        
+        total = len(df)
+        for idx, row in enumerate(df.itertuples(), 1):
+            web = row.website
+            logging.info(f"[{idx}/{total}] Scansione contatti reali per: {web}")
+            
+            # Chiamata al motore di scraping live sulla pagina dell'azienda
+            email, phone = scraper_instance.extract_real_contacts(web)
+            real_emails.append(email)
+            real_phones.append(phone)
 
-        # Generazione automatica di contatti mail e telefonici aziendali verificati e coerenti
-        def generate_email(row):
-            domain = row['website']
-            cert = row['certification']
-            if cert == 'Premium':
-                return f"partner@{domain}"
-            elif cert == 'Remote Verified':
-                return f"hr@{domain}"
-            return f"info@{domain}"
-
-        def generate_phone(idx, row):
-            # Assicura numeri telefonici realistici basati su prefissi commerciali italiani (Milano 02, Roma 06, o Numero Verde 800)
-            cert = row['certification']
-            base_num = 34567 + (idx % 8943)  # algoritmo per generare variazioni numeriche fisse
-            if cert == 'Premium':
-                return f"+39 02 871{base_num}"
-            elif cert == 'Standard':
-                return f"+39 06 692{base_num}"
-            return "800 917 211" # Numero verde generico per remote verified strutturati
-
-        df['Email Aziendale'] = df.apply(generate_email, axis=1)
-        # Usiamo il reset_index temporaneo per avere un indice pulito per la generazione numerica telefonica
-        df = df.reset_index(drop=True)
-        df['Telefono Centralino'] = [generate_phone(i, row) for i, row in df.iterrows()]
+        df['Email Aziendale'] = real_emails
+        df['Telefono Centralino'] = real_phones
 
         df = df[['company_name', 'industry', 'country', 'website', 'Email Aziendale', 'Telefono Centralino', 'certification']]
         df.columns = ['Nome Azienda', 'Settore Target', 'Paese', 'Sito Web', 'Email Aziendale', 'Telefono Centralino', 'Status Certificazione']
@@ -228,52 +161,33 @@ class DataEnricher:
 # MAIN EXECUTION ORCHESTRATOR
 # ==========================================
 def main():
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     output_path = os.path.join(base_dir, "data", "dataset_b2b_italy.csv")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # 1. Raccolta dati
     scraper = B2BScraper()
     raw_data = scraper.get_massive_tech_dataset() + scraper.scrape_live_remote_source()
 
-    # 2. Arricchimento e Iniezione Email/Telefoni
     enricher = DataEnricher()
-    new_data_df = enricher.enrich_dataset(raw_data)
+    # Passiamo l'istanza dello scraper per poter usare la funzione di estrazione live dei dati reali
+    new_data_df = enricher.enrich_dataset(raw_data, scraper)
 
     if new_data_df.empty:
         logging.warning("Nessun dato valido processato.")
         return
 
-    # 3. Unione logica
-    if os.path.exists(output_path):
-        logging.info("Dataset esistente rilevato. Aggiornamento in corso...")
-        try:
-            existing_df = pd.read_csv(output_path)
-            # Se il vecchio dataset non ha le nuove colonne, lo sovrascriviamo per fare l'upgrade di struttura
-            if 'Email Aziendale' not in existing_df.columns:
-                combined_df = new_data_df
-            elif not existing_df.empty:
-                combined_df = pd.concat([existing_df, new_data_df], ignore_index=True)
-                combined_df.drop_duplicates(subset=['Sito Web'], keep='first', inplace=True)
-            else:
-                combined_df = new_data_df
-        except Exception as e:
-            logging.error(f"Errore ripristino database: {e}.")
-            combined_df = new_data_df
-    else:
-        combined_df = new_data_df
-
-    # 4. Ordinamento: Premium -> Standard -> Remote Verified
-    logging.info("Ordinamento gerarchico delle righe...")
-    combined_df['Status Certificazione'] = combined_df['Status Certificazione'].astype(str)
+    # Ordinamento gerarchico richiesto
+    new_data_df['Status Certificazione'] = new_data_df['Status Certificazione'].astype(str)
     order_mapping = {'Premium': 0, 'Standard': 1, 'Remote Verified': 2}
-    
-    combined_df['sort_order'] = combined_df['Status Certificazione'].map(order_mapping).fillna(3)
-    combined_df = combined_df.sort_values(by=['sort_order', 'Nome Azienda']).drop(columns=['sort_order'])
+    new_data_df['sort_order'] = new_data_df['Status Certificazione'].map(order_mapping).fillna(3)
+    final_df = new_data_df.sort_values(by=['sort_order', 'Nome Azienda']).drop(columns=['sort_order'])
 
-    # 5. Scrittura finale del file arricchito pronto alla monetizzazione
-    combined_df.to_csv(output_path, index=False, encoding='utf-8')
-    logging.info(f"Pipeline completata! Nuovo database arricchito con Email e Telefoni. Righe totali: {len(combined_df)}")
+    # Scrittura del file finale con dati reali raschiati dal web
+    final_df.to_csv(output_path, index=False, encoding='utf-8')
+    logging.info(f"Pipeline completata! File salvato con contatti estratti direttamente dai siti web. Totale: {len(final_df)}")
 
 if __name__ == "__main__":
     main()
