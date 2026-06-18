@@ -1,6 +1,11 @@
 import os
-import pandas as pd
+import sys
 import logging
+import pandas as pd
+
+# Fix definitivo per i percorsi: aggiunge la cartella principale del progetto al path di Python
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.scraper import B2BScraper
 from src.enricher import DataEnricher
 
