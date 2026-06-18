@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 import logging
-from scraper import B2BScraper
-from enricher import DataEnricher
+from src.scraper import B2BScraper
+from src.enricher import DataEnricher
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -28,11 +28,16 @@ def main():
     # 3. Aggiornamento Incrementale (No Sovrascrittura Distruttiva)
     if os.path.exists(output_path):
         logging.info("Dataset esistente trovato. Unione in corso...")
-        existing_df = pd.read_csv(output_path)
-        
-        # Unione e rimozione duplicati basata sul Sito Web
-        combined_df = pd.concat([existing_df, new_data_df], ignore_index=True)
-        combined_df.drop_duplicates(subset=['Sito Web'], keep='first', inplace=True)
+        try:
+            existing_df = pd.read_csv(output_path)
+            if not existing_df.empty:
+                combined_df = pd.concat([existing_df, new_data_df], ignore_index=True)
+                combined_df.drop_duplicates(subset=['Sito Web'], keep='first', inplace=True)
+            else:
+                combined_df = new_data_df
+        except Exception as e:
+            logging.error(f"Errore durante la lettura del dataset esistente: {e}. Creo un nuovo file.")
+            combined_df = new_data_df
     else:
         logging.info("Nessun dataset precedente trovato. Creazione nuovo file.")
         combined_df = new_data_df
