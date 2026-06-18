@@ -2,8 +2,8 @@ name: Automated B2B Data Pipeline
 
 on:
   schedule:
-    - cron: '0 2 * * *' # Esecuzione automatica ogni giorno alle 02:00 UTC
-  workflow_dispatch: # Permette l'avvio manuale da pannello GitHub
+    - cron: '0 2 * * *'
+  workflow_dispatch:
 
 jobs:
   run-pipeline:
@@ -25,6 +25,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Execute Data Pipeline
+      env:
+        PYTHONPATH: .
       run: python src/main.py
 
     - name: Commit and Push Changes
@@ -32,7 +34,5 @@ jobs:
         git config --global user.name "DaaS Automation Bot"
         git config --global user.email "bot@daas-automated.internal"
         git add data/dataset_b2b_italy.csv
-        
-        # Evita che il workflow fallisca se non ci sono nuove aziende trovate oggi
         git diff-index --quiet HEAD || git commit -m "Automated update: Added new B2B leads [skip ci]"
         git push
