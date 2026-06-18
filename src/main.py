@@ -19,7 +19,7 @@ class B2BScraper:
     def get_massive_tech_dataset(self):
         logging.info("Estrazione database italiano High-Tech & Digital...")
         
-        # Database nativo di 120 aziende top B2B Tech/SaaS/Digital in Italia
+        # Database nativo di aziende top B2B Tech/SaaS/Digital in Italia
         companies_pool = [
             # SaaS & Software Houses
             {"name": "Bending Spoons", "ind": "SaaS & High-Tech B2B", "web": "bendingspoons.com", "cert": "Premium"},
@@ -186,7 +186,7 @@ class DataEnricher:
         return parts[2] if len(parts) > 2 else url
 
     def enrich_dataset(self, raw_data):
-        logging.info("Normalizzazione e rimozione duplicati latenti in corso...")
+        logging.info("Normalizzazione e rimozione duplicati...")
         if not raw_data:
             return pd.DataFrame()
 
@@ -203,16 +203,15 @@ class DataEnricher:
 # MAIN EXECUTION ORCHESTRATOR
 # ==========================================
 def main():
-    # Identificazione dinamica della root del progetto
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     output_path = os.path.join(base_dir, "data", "dataset_b2b_italy.csv")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    # 1. Raccolta dati massiva dalle fonti integrate
+    # 1. Raccolta dati
     scraper = B2BScraper()
     raw_data = scraper.get_massive_tech_dataset() + scraper.scrape_live_remote_source()
 
-    # 2. Arricchimento e Pulizia
+    # 2. Arricchimento
     enricher = DataEnricher()
     new_data_df = enricher.enrich_dataset(raw_data)
 
@@ -220,9 +219,9 @@ def main():
         logging.warning("Nessun dato valido processato.")
         return
 
-    # 3. Aggiornamento incrementale intelligente senza perdita di storici
+    # 3. Unione con storici
     if os.path.exists(output_path):
-        logging.info("Dataset esistente rilevato. Esecuzione deduplicazione e unione...")
+        logging.info("Dataset esistente rilevato. Unione...")
         try:
             existing_df = pd.read_csv(output_path)
             if not existing_df.empty:
@@ -231,15 +230,26 @@ def main():
             else:
                 combined_df = new_data_df
         except Exception as e:
-            logging.error(f"Errore lettura database esistente: {e}. Genero nuovo file.")
+            logging.error(f"Errore lettura database: {e}. Ricreo.")
             combined_df = new_data_df
     else:
-        logging.info("Database non trovato. Inizializzazione nuovo archivio.")
         combined_df = new_data_df
 
-    # 4. Scrittura del file pronto alla vendita
+    # 4. ORDINAMENTO CRITICO RICHIESTO: Premium -> Standard -> Remote Verified
+    logging.info("Ordinamento personalizzato delle certificazioni...")
+    # Crea una colonna temporanea categorica per imporre l'ordine esatto richiesto
+    combined_df['Status Certificazione'] = combined_df['Status Certificazione'].astype(str)
+    
+    # Definiamo l'ordine logico
+    order_mapping = {'Premium': 0, 'Standard': 1, 'Remote Verified': 2}
+    
+    # Applichiamo l'ordinamento usando una mappa numerica temporanea
+    combined_df['sort_order'] = combined_df['Status Certificazione'].map(order_mapping).fillna(3)
+    combined_df = combined_df.sort_values(by=['sort_order', 'Nome Azienda']).drop(columns=['sort_order'])
+
+    # 5. Scrittura del file ordinato
     combined_df.to_csv(output_path, index=False, encoding='utf-8')
-    logging.info(f"Pipeline completata! Righe inserite nel database pronto vendita: {len(combined_df)}")
+    logging.info(f"Pipeline completata con successo! Database riordinato. Righe totali: {len(combined_df)}")
 
 if __name__ == "__main__":
     main()
