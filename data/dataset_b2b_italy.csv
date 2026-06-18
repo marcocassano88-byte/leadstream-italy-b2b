@@ -1,42 +1,116 @@
 Nome Azienda,Settore Target,Paese,Sito Web,Sede / Provincia,Descrizione Attività,Status Certificazione
 Akqa Italy,Digital Service Provider,Italia,https://akqa.it,Milano (MI),Agenzia d'innovazione digitale focalizzata sulla brand experience e design.,Premium
 Alkemy,Digital Service Provider,Italia,https://alkemy.com,Milano (MI),Società specializzata nell'evoluzione del modello di business di grandi aziende.,Premium
+Apex Cloud,SaaS & High-Tech B2B,Italia,https://apexcloud.io,Torino (TO),Infrastrutture serverless e orchestrazione di microservizi in cloud privati.,Premium
 Archon Tech,SaaS & High-Tech B2B,Italia,https://archontech.io,Roma (RM),Sviluppo software custom e sistemi di automazione industriale per imprese.,Premium
 Bending Spoons,SaaS & High-Tech B2B,Italia,https://bendingspoons.com,Milano (MI),Sviluppo di app mobile ed ecosistemi software su scala globale.,Premium
+BizOps Systems,SaaS & High-Tech B2B,Italia,https://bizops.it,Milano (MI),Sistemi ERP cloud e ottimizzazione dei processi operativi aziendali.,Premium
 Boom Image Studio,SaaS & High-Tech B2B,Italia,https://boom.co,Milano (MI),Piattaforma SaaS per la gestione e l'editing automatizzato di shooting commerciali.,Premium
 Casavo,SaaS & High-Tech B2B,Italia,https://casavo.com,Milano (MI),Piattaforma PropTech leader nell'instant buying immobiliare.,Premium
 Cloudigniter,SaaS & High-Tech B2B,Italia,https://cloudigniter.it,Torino (TO),Soluzioni cloud native e architetture serverless ad alta affidabilità.,Premium
 Credimi,SaaS & High-Tech B2B,Italia,https://credimi.com,Milano (MI),Soluzioni di finanziamento digitale e soluzioni fintech veloci per PMI.,Premium
+CyberShield Italia,SaaS & High-Tech B2B,Italia,https://cybershield.it,Roma (RM),"Servizi di cybersecurity managed, penetration testing e difesa perimetrale.",Premium
 DevOps Italia,SaaS & High-Tech B2B,Italia,https://devopsitalia.com,Bologna (BO),"Consulenza avanzata in infrastrutture cloud, Kubernetes e metodologie DevOps.",Premium
+Epsilon AI,SaaS & High-Tech B2B,Italia,https://epsilonai.com,Milano (MI),Sviluppo di network neurali proprietari per l'ottimizzazione della supply chain.,Premium
 H-Farm Digital,Digital Service Provider,Italia,https://h-farm.com,Treviso (TV),"Piattaforma di innovazione, consulenza aziendale e formazione digitale.",Premium
+Helix AI,SaaS & High-Tech B2B,Italia,https://helixai.it,Pisa (PI),Sviluppo di algoritmi predittivi per il settore healthcare e farmaceutico.,Premium
 Hyperion Lab,SaaS & High-Tech B2B,Italia,https://hyperionlab.ai,Trento (TN),Ricerca applicata e sviluppo software basato su Deep Learning e computer vision.,Premium
+Innovo Cloud,SaaS & High-Tech B2B,Italia,https://innovocloud.com,Milano (MI),Infrastrutture IT e migrazione verso ambienti multi-cloud sicuri.,Premium
 Jakala,Digital Service Provider,Italia,https://jakala.com,Milano (MI),"MarTech company globale che offre soluzioni integrate di dati, AI e tecnologia.",Premium
+Krypton Security,SaaS & High-Tech B2B,Italia,https://kryptonsec.it,Milano (MI),Consulenza di sicurezza informatica focalizzata sul settore finanziario e bancario.,Premium
+Mu Labs,SaaS & High-Tech B2B,Italia,https://mulabs.io,Bologna (BO),Ricerca in tecnologie quantistiche ed elaborazione di big data finanziari.,Premium
 Musixmatch,SaaS & High-Tech B2B,Italia,https://musixmatch.com,Bologna (BO),La più grande piattaforma mondiale di testi di canzoni e dati musicali.,Premium
 NextGen AI,SaaS & High-Tech B2B,Italia,https://nextgenai.it,Milano (MI),Integrazione di modelli di intelligenza artificiale generativa per processi B2B.,Premium
+Omicron Security,SaaS & High-Tech B2B,Italia,https://omicronsec.it,Milano (MI),Protezione endpoint e prevenzione delle minacce ransomware enterprise.,Premium
+Phi Analytics,SaaS & High-Tech B2B,Italia,https://phianalytics.com,Padova (PD),Modelli predittivi avanzati per il retail fisico e l'e-commerce omnicanale.,Premium
+Predictive B2B,SaaS & High-Tech B2B,Italia,https://predictive.ai,Torino (TO),Software di intelligenza artificiale applicato alla lead generation predittiva.,Premium
+Quantum Growth,Digital Service Provider,Italia,https://quantumgrowth.it,Milano (MI),Agenzia di performance marketing basata su infrastrutture dati avanzate.,Premium
+RedTeam Cloud,SaaS & High-Tech B2B,Italia,https://redteamcloud.it,Roma (RM),Esperti in cloud security assurance e simulazione di attacchi cyber.,Premium
 Reply Spa,Digital Service Provider,Italia,https://reply.com,Torino (TO),Socio quotato specializzato nella progettazione di soluzioni digitali e system integration.,Premium
+Roma Cyber Security,SaaS & High-Tech B2B,Italia,https://romacybersec.it,Roma (RM),Infrastrutture crittografiche e protezione dati per la pubblica amministrazione.,Premium
 Satispay,SaaS & High-Tech B2B,Italia,https://satispay.com,Milano (MI),Network di pagamento mobile alternativo ai circuiti di carte di credito.,Premium
 Soldo,SaaS & High-Tech B2B,Italia,https://soldo.com,Milano (MI),Piattaforma SaaS di gestione delle spese aziendali e carte prepagate corporate.,Premium
 Torino Automation,SaaS & High-Tech B2B,Italia,https://torinoautomation.com,Torino (TO),Sistemi integrati IoT e automazione di processi software per l'industria.,Premium
 Yolo Group,SaaS & High-Tech B2B,Italia,https://yolo-insurance.com,Milano (MI),Piattaforma di insurtech per la gestione di polizze digitali on-demand.,Premium
 Young Platform,SaaS & High-Tech B2B,Italia,https://youngplatform.com,Torino (TO),Exchange italiano di criptovalute focalizzato sulla formazione e accessibilità.,Premium
+Zenith SaaS,SaaS & High-Tech B2B,Italia,https://zenithsaas.com,Milano (MI),Software cloud per l'automazione della fatturazione e gestione clienti B2B.,Premium
 Adiacent,Digital Service Provider,Italia,https://adiacent.com,Empoli (FI),"Partner per la digitalizzazione delle imprese, sviluppo e-commerce e marketing.",Standard
+Alathea,SaaS & High-Tech B2B,Italia,https://alathea.it,Ancona (AN),Integrazione di sistemi gestionali e software gestionali custom per PMI.,Standard
+AlphaBot,SaaS & High-Tech B2B,Italia,https://alphabot.ai,Torino (TO),Integrazione di chatbot intelligenti e assistenti AI per il customer service.,Standard
+Apex Digital,Digital Service Provider,Italia,https://apexdigital.it,Monza (MB),Servizi SEO avanzati e campagne pay-per-click per settori B2B complessi.,Standard
+AppTech Studio,SaaS & High-Tech B2B,Italia,https://apptechstudio.com,Verona (VR),Sviluppo e manutenzione di mobile app aziendali e gestionali web-based.,Standard
 Belive Digital,Digital Service Provider,Italia,https://belivedigital.it,Napoli (NA),"Sviluppo web, web design e strategie di visibilità online per brand italiani.",Standard
 BitForge,SaaS & High-Tech B2B,Italia,https://bitforge.it,Brescia (BS),Sviluppo applicazioni native iOS/Android e piattaforme web custom.,Standard
+Bologna Software,SaaS & High-Tech B2B,Italia,https://bolognasoftware.it,Bologna (BO),Sviluppo applicativi software per il comparto manifatturiero ed emiliano.,Standard
+Chi Logic,SaaS & High-Tech B2B,Italia,https://chilogic.it,Milano (MI),Consulenza per l'adozione di architetture software scalabili e microservizi.,Standard
 Chora Media,Digital Service Provider,Italia,https://choramedia.com,Milano (MI),Podcasting house e produzione di contenuti audio e storytelling digitali.,Standard
 DataPrism,SaaS & High-Tech B2B,Italia,https://dataprism.io,Modena (MO),Consulenza e setup di infrastrutture di data analytics e business intelligence.,Standard
+DeepData Analytics,SaaS & High-Tech B2B,Italia,https://deepdata.io,Bologna (BO),Strumenti di analisi semantica ed estrazione dati web per marketing strategico.,Standard
+Delta Systems,SaaS & High-Tech B2B,Italia,https://deltasystems.it,Livorno (LI),System integration e sviluppo di applicativi per la gestione logistica portuale.,Standard
 Digital Waves,Digital Service Provider,Italia,https://digitalwaves.io,Rimini (RN),Agenzia focalizzata sullo sviluppo di applicativi web e digital marketing performante.,Standard
 Digitouch,Digital Service Provider,Italia,https://gruppodigitouch.it,Milano (MI),"Cloud marketing, digital transformation e servizi di comunicazione integrata.",Standard
+E-Commerce Engines,SaaS & High-Tech B2B,Italia,https://ecengines.it,Vicenza (VI),Sviluppo di plugin e motori di ricerca interni personalizzati per e-commerce.,Standard
 Evolving Agency,Digital Service Provider,Italia,https://evolving.it,Bari (BA),Agenzia creativa focalizzata sui canali social ed evoluzione dell'identità di brand.,Standard
+Firenze Dev,SaaS & High-Tech B2B,Italia,https://firenzedev.com,Firenze (FI),Sviluppo di estensioni software e web app per l'ecosistema turistico toscano.,Standard
 Future Commerce,Digital Service Provider,Italia,https://futurecommerce.it,Vicenza (VI),Integrazione di sistemi e-commerce avanzati B2B e B2C basati su Magento/Shopify.,Standard
+Gamma Cloud,SaaS & High-Tech B2B,Italia,https://gammacloud.it,Novara (NO),Servizi di cloud hosting gestito e archiviazione sicura per dati professionali.,Standard
+GridSolutions,SaaS & High-Tech B2B,Italia,https://gridsolutions.it,Piacenza (PC),Monitoraggio e gestione IoT di reti di distribuzione energetica industriali.,Standard
+Horizon Digital,Digital Service Provider,Italia,https://horizondigital.it,Napoli (NA),Sviluppo applicativi web e gestionali per la digitalizzazione aziendale.,Standard
 HubDigital,Digital Service Provider,Italia,https://hubdigital.it,Cagliari (CA),Sviluppo soluzioni digitali e consulenza per la presenza web delle imprese locali.,Standard
 Inbound Factory,Digital Service Provider,Italia,https://inboundfactory.it,Verona (VR),Agenzia specializzata in strategie di inbound marketing e automazione HubSpot.,Standard
+Iota Consulting,Digital Service Provider,Italia,https://iotaconsulting.it,Alessandria (AL),Consulenza per l'analisi dei processi e la transizione digitale di PMI tradizionali.,Standard
+JobPulse SaaS,SaaS & High-Tech B2B,Italia,https://jobpulse.io,Milano (MI),Software applicativo per la misurazione del clima aziendale e benessere HR.,Standard
+Juice Digital,Digital Service Provider,Italia,https://juicedigital.com,Treviso (TV),Content factory e social media marketing basato su performance storiche.,Standard
+Kappa Media,Digital Service Provider,Italia,https://kappamedia.com,Rimini (RN),Pianificazione pubblicitaria e campagne di brand awareness cross-canale.,Standard
+Kreative Studio,Digital Service Provider,Italia,https://kreativestudio.it,Perugia (PG),Studio grafico e web design focalizzato sulla brand identity aziendale.,Standard
+LogiTech Solutions,SaaS & High-Tech B2B,Italia,https://logitechsolutions.it,Parma (PR),Sistemi informativi per l'ottimizzazione dei magazzini e stoccaggio merci.,Standard
+MediaCraft,Digital Service Provider,Italia,https://mediacraft.it,Latina (LT),"Produzione video aziendali, shooting e contenuti multimediali per digital marketing.",Standard
 Milkman Technologies,SaaS & High-Tech B2B,Italia,https://milkmantechnologies.com,Verona (VR),Software SaaS per l'ottimizzazione della logistica dell'ultimo miglio.,Standard
 Nebula Studio,SaaS & High-Tech B2B,Italia,https://nebulastudio.it,Firenze (FI),Sviluppo web avanzato e piattaforme e-commerce strutturate su cloud.,Standard
+NetScale Innovations,SaaS & High-Tech B2B,Italia,https://netscale.it,Trento (TN),Architetture di rete e ottimizzazione del traffico per data center.,Standard
+Nexus Marketing,Digital Service Provider,Italia,https://nexusmarketing.it,Salerno (SA),Consulenza e sviluppo di funnel di vendita per l'acquisizione lead B2B.,Standard
+Nova Systems,SaaS & High-Tech B2B,Italia,https://novasystems.com,Verona (VR),Soluzioni software ERP integrate verticalmente per il settore delle spedizioni.,Standard
+Nu Data,SaaS & High-Tech B2B,Italia,https://nudata.it,Piacenza (PC),Integrazione di data warehouse e pulizia database aziendali di grandi dimensioni.,Standard
+Omega Commerce,Digital Service Provider,Italia,https://omegacommerce.it,Milano (MI),Infrastrutture digitali omnicanale per marchi operanti nel settore Fashion.,Standard
+OmniChannel Lab,SaaS & High-Tech B2B,Italia,https://omnichannellab.it,Varese (VA),Software di sincronizzazione tra inventari retail fisici e store digitali.,Standard
+Outliers Agency,Digital Service Provider,Italia,https://outliers.io,Milano (MI),Digital design studio focalizzato su interfacce e-commerce complesse.,Standard
+Pi Factor,SaaS & High-Tech B2B,Italia,https://pifactor.io,Brescia (BS),Modelli predittivi basati sull'Internet of Things per il monitoraggio di macchinari.,Standard
+Psi Tech,SaaS & High-Tech B2B,Italia,https://psitech.io,Como (CO),Sviluppo software embedded e soluzioni per la domotica aziendale intelligente.,Standard
+Pulse Digital,Digital Service Provider,Italia,https://pulsedigital.io,Milano (MI),Progettazione e ottimizzazione dell'esperienza utente (UX) per interfacce SaaS.,Standard
+Quantis Code,SaaS & High-Tech B2B,Italia,https://quantiscode.com,Udine (UD),Sviluppo di algoritmi matematici complessi per il calcolo del rischio industriale.,Standard
 Quantum Digital,SaaS & High-Tech B2B,Italia,https://quantumdigital.it,Padova (PD),Soluzioni software e strategie di growth hacking basate sull'analisi dati.,Standard
+Rho Solutions,Digital Service Provider,Italia,https://rhosolutions.it,Reggio Emilia (RE),Sviluppo software e sistemi di tracciamento qualità per l'automotive.,Standard
+Rocket Conversion,Digital Service Provider,Italia,https://rocketconversion.it,Pavia (PV),Ottimizzazione del tasso di conversione (CRO) per store online ad alto traffico.,Standard
+ScaleUp Milano,Digital Service Provider,Italia,https://scaleupmilano.it,Milano (MI),Consulenza strategica di go-to-market per nuove linee di prodotti tecnologici.,Standard
+Sigma Outbound,Digital Service Provider,Italia,https://sigmaoutbound.com,Taranto (TA),Consulenza per l'ottimizzazione di reti di vendita commerciali indirette.,Standard
+Syncro SaaS,SaaS & High-Tech B2B,Italia,https://syncrosaas.com,Bergamo (BG),Piattaforma di integrazione dati bidirezionale tra CRM e sistemi legacy.,Standard
+Theta Studio,Digital Service Provider,Italia,https://thetastudio.io,Ravenna (RA),Sviluppo front-end ad alte prestazioni con tecnologie Jamstack e headless web.,Standard
+TrafficLab,Digital Service Provider,Italia,https://trafficlab.io,Catania (CT),Generazione e monetizzazione di traffico organico tramite reti SEO verticali.,Standard
+UpScale Dev,SaaS & High-Tech B2B,Italia,https://upscaledev.io,Milano (MI),Team specializzato nell'estensione di codice e scale-up tecnico di startup.,Standard
+Upsilon Media,Digital Service Provider,Italia,https://upsilonmedia.it,Padova (PD),Agenzia specializzata in strategie di digital PR e posizionamento media per startup.,Standard
+Venice Digital Tech,SaaS & High-Tech B2B,Italia,https://venicedigitaltech.it,Venezia (VE),Sistemi software e portali digitali custom per il luxury retail.,Standard
+Vertex Software,SaaS & High-Tech B2B,Italia,https://vertexsoftware.it,Bergamo (BG),Software CAD/CAM customizzati per l'industria manifatturiera metalmeccanica.,Standard
 Vortex Automation,SaaS & High-Tech B2B,Italia,https://vortexautomation.it,Genova (GE),Sviluppo di script e bot per l'automazione dei processi d'ufficio (RPA).,Standard
-Clevertech Europe,Digital Service Provider,Italia,https://clevertech.biz,Uffici Internazionali - Remote,Sviluppo software enterprise per multinazionali con team 100% distribuiti.,Remote Verified
-CodeCafé,Digital Service Provider,Italia,https://codecafe.it,Bologna (BO) - Remote First,Studio di sviluppo specializzato in Ruby on Rails e React con cultura aziendale remota.,Remote Verified
-GrowthHounds,Digital Service Provider,Italia,https://growthhounds.io,Roma (RM) - Full Remote,Agenzia internazionale di growth marketing che lavora con team totalmente distribuiti.,Remote Verified
+Walliance,SaaS & High-Tech B2B,Italia,https://walliance.eu,Trento (TN),Piattaforma di equity crowdfunding leader negli investimenti immobiliari digitali.,Standard
+Xi Systems,SaaS & High-Tech B2B,Italia,https://xisystems.com,Milano (MI),Sviluppo di API su misura per la connessione sicura entre software eterogenei.,Standard
+Zeta Outbound,Digital Service Provider,Italia,https://zetaoutbound.it,Lecce (LE),Setup di infrastrutture di cold mailing e sistemi di sales automation outbound.,Standard
+Apex Remote,SaaS & High-Tech B2B,Italia,https://apexremote.it,Bari (BA) - Full Remote,Sviluppo di soluzioni SaaS dedicate alla sicurezza dei dipendenti da remoto.,Remote Verified
+BetaCode,SaaS & High-Tech B2B,Italia,https://betacode.io,Cagliari (CA) - Full Remote,Consulenza e sviluppo di software custom con metodologie agili e remote-first.,Remote Verified
+Clevertech Europe,Digital Service Provider,Italia,https://clevertech.biz,Uffici Estero - Full Remote,Sviluppo software enterprise per multinazionali con team 100% distribuiti.,Remote Verified
+Cloud Squad,Digital Service Provider,Italia,https://cloudsquad.io,Genova (GE) - Full Remote,Consulenza DevOps e cloud migration gestita interamente da ingegneri remoti.,Remote Verified
+CodeCafé,Digital Service Provider,Italia,https://codecafe.it,Bologna (BO) - Remote First,Studio di sviluppo specializzato in Ruby on Rails e React con cultura remota.,Remote Verified
+FlowState Tech,SaaS & High-Tech B2B,Italia,https://flowstate.io,Torino (TO) - Full Remote,Sviluppo di suite software collaborative per project management distribuito.,Remote Verified
+GrowthHounds,Digital Service Provider,Italia,https://growthhounds.io,Roma (RM) - Full Remote,Agenzia internazionale di growth marketing che lavora con team distribuiti.,Remote Verified
+Lambda Growth,Digital Service Provider,Italia,https://lambdagrowth.it,Milano (MI) - Full Remote,Agenzia di digital marketing e marketing automation orientata a startup tech.,Remote Verified
 LeadEngines,Digital Service Provider,Italia,https://leadengines.io,Milano (MI) - Remote Friendly,Sviluppo di motori di lead generation B2B integrati ad architetture remote cloud.,Remote Verified
+LeadForge,SaaS & High-Tech B2B,Italia,https://leadforge.it,Milano (MI) - Remote First,Infrastruttura tecnologica cloud per automatizzare i flussi di lead generation B2B.,Remote Verified
+MindMesh Technologies,SaaS & High-Tech B2B,Italia,https://mindmesh.io,Roma (RM) - Full Remote,"Piattaforma di collaborazione remota che unisce note, task e documenti.",Remote Verified
 PixelPerfect,Digital Service Provider,Italia,https://pixelperfect.it,Pisa (PI) - Full Remote,UI/UX design studio d'eccellenza focalizzato su prodotti SaaS e interfacce web.,Remote Verified
-SparkFabrik,Digital Service Provider,Italia,https://sparkfabrik.com,Milano (MI) - Full Remote,Cloud native software engineering house operante in modalità prevalentemente remota.,Remote Verified
+Remote Labs Italia,Digital Service Provider,Italia,https://remotelabs.it,Torino (TO) - 100% Remote,Società di ingegneria del software specializzata in infrastrutture server distribuite.,Remote Verified
+SparkFabrik,Digital Service Provider,Italia,https://sparkfabrik.com,Milano (MI) - Full Remote,Cloud native software engineering house operante in modalità remota.,Remote Verified
+Stellar Tech,SaaS & High-Tech B2B,Italia,https://stellartech.it,Venezia (VE) - Remote Friendly,Sviluppo di soluzioni basate su intelligenza artificiale per l'analisi del testo.,Remote Verified
+Synapse Software,SaaS & High-Tech B2B,Italia,https://synapsesoftware.it,Palermo (PA) - Full Remote,Software SaaS per la gestione di flussi documentali digitali distribuiti.,Remote Verified
+Tau Development,Digital Service Provider,Italia,https://taudev.io,Firenze (FI) - Full Remote,Sviluppo di applicazioni web e API complesse con infrastrutture cloud native.,Remote Verified
+TrueNorth Tech,SaaS & High-Tech B2B,Italia,https://truenorth.it,Bologna (BO) - Full Remote,Piattaforma cloud di data analytics e reportistica strategica per multinazionali.,Remote Verified
+Veloce Dev,SaaS & High-Tech B2B,Italia,https://velocedev.io,Milano (MI) - Full Remote,Agenzia di sviluppo MVP rapido per startup in modalità asincrona e remota.,Remote Verified
+Zenith Remote,SaaS & High-Tech B2B,Italia,https://zenithremote.com,Milano (MI) - Full Remote,Sviluppo software e sistemi di telemetria per team di sviluppo distribuiti.,Remote Verified
