@@ -5,6 +5,10 @@ on:
     - cron: '0 2 * * *'
   workflow_dispatch:
 
+# AUTORIZZAZIONE SCRITTURA DEFINITIVA: Consente al bot di salvare i dati nel repo
+permissions:
+  contents: write
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -31,8 +35,8 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
-        git config --global user.name "DaaS Automation Bot"
-        git config --global user.email "bot@daas-automated.internal"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add data/dataset_b2b_italy.csv
         git diff-index --quiet HEAD || git commit -m "Automated update: Added new B2B leads [skip ci]"
         git push
